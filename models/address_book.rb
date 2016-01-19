@@ -1,7 +1,9 @@
 require_relative 'entry'
 
+
 class AddressBook
   attr_accessor :entries
+
 
   def initialize
     @entries = []
@@ -20,3 +22,5 @@ class AddressBook
     @entries.insert(index,Entry.new(name, phone_number, email))
   end
 end
+
+#Entry.new('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
