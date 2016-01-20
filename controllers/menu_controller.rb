@@ -1,20 +1,26 @@
 require_relative '../models/address_book'
 
  class MenuController
-   attr_accessor :address_book
+   attr_accessor :address_book, :entries
 
    def initialize
      @address_book = AddressBook.new
+     @address_book.add_entry("nada1", "nada","nada@gmail.com")
+     @address_book.add_entry("a", "123", "123@gmail.com")
+     @address_book.add_entry("b","234","234@gmail.com")
+
    end
 
    def main_menu
  # #2
+
      puts "Main Menu - #{@address_book.entries.count} entries"
      puts "1 - View all entries"
-     puts "2 - Create an entry"
-     puts "3 - Search for an entry"
-     puts "4 - Import entries from a CSV"
-     puts "5 - Exit"
+     puts "2 - View entry #n"
+     puts "3 - Create an entry"
+     puts "4 - Search for an entry"
+     puts "5 - Import entries from a CSV"
+     puts "6 - Exit"
      print "Enter your selection: "
 
  # #3
@@ -26,17 +32,22 @@ require_relative '../models/address_book'
       main_menu
     when 2
       system "clear"
-      create_entry
+      view_entry_n
       main_menu
+
     when 3
       system "clear"
-      search_entries
+      create_entry
       main_menu
     when 4
       system "clear"
-      read_csv
+      search_entries
       main_menu
     when 5
+      system "clear"
+      read_csv
+      main_menu
+    when 6
       puts "Good-bye!"
 # #8
       exit(0)
@@ -62,6 +73,46 @@ require_relative '../models/address_book'
   end
 
   def create_entry
+    system "clear"
+    puts "New AddressBloc Entry"
+    # #12
+    print "Name: "
+    name = gets.chomp
+    print "Phone number: "
+    phone = gets.chomp
+    print "Email: "
+    email = gets.chomp
+
+    # #13
+    @address_book.add_entry(name, phone, email)
+
+    system "clear"
+    puts "New entry created"
+  end
+
+  def view_entry_n
+    system "clear"
+    puts "View AddressBloc entry # from 0 to #{@address_book.entries.count.to_i - 1}"
+    print "Entry #: "
+    num = gets.chomp.to_i
+
+    if num < @address_book.entries.count
+      puts "#{@address_book.entries[num]}"
+      gets.chomp
+      system "clear"
+
+    else
+      puts "Please put entry from 0 to #{@address_book.entries.count.to_i - 1}, press Q to quit"
+      selection = gets.chomp
+      case selection
+      when "Q"
+        system "clear"
+        main_menu
+      else
+        view_entry_n
+      end
+    end
+
   end
 
   def search_entries
