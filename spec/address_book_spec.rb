@@ -116,4 +116,34 @@ RSpec.describe AddressBook do
 
 
   end
+
+
+
+   describe "#import_from_csv" do
+      it "imports the correct number of amigos" do
+  # #3
+        book.import_from_csv("entries_2.csv")
+        book_size = book.entries.size
+        expect(book_size).to eq 3
+      end
+
+      it "imports the 1st amigo" do
+        book.import_from_csv("entries_2.csv")
+        entry_one = book.entries[0]
+        check_entry(entry_one, "Dusty Bottoms", "123-456-789", "dbottoms@amigos.com")
+      end
+
+
+       it "imports the 2nd amigo" do
+         book.import_from_csv("entries_2.csv")
+         entry_two = book.entries[1]
+         check_entry(entry_two, "Lucky Day", "777-777-777", "lday@amigos.com")
+       end
+
+       it "imports the 3rd amigo" do
+         book.import_from_csv("entries_2.csv")
+         entry_three = book.entries[2]
+         check_entry(entry_three, "Ned Nederlander", "987-654-321", "nnederlander@amigos.com")
+       end
+     end
 end
