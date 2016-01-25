@@ -11,7 +11,7 @@ class AddressBook
 
   def add_entry(name, phone_number, email)
     index = 0
-    @entries.each do |entry|
+    @entries.each do |entry| #does 'entry' refer to entry.rb?
 
       if name < entry.name
         break
@@ -36,13 +36,11 @@ class AddressBook
      lower = 0
      upper = @entries.length - 1
 
-    # #2
      while lower <= upper
-    # #3
+
        mid = (lower + upper) / 2
        mid_name = @entries[mid].name
 
-    # #4
        if name == mid_name
          return @entries[mid]
        elsif name < mid_name
@@ -52,6 +50,16 @@ class AddressBook
        end
      end
      return nil #what does this display? If name==mid_name, doesn't that make return nil unnecessary?
+   end
+
+   def iterative_search(name)
+     @entries.each do |lookup|
+
+       if lookup.name == name
+         return lookup
+       end
+     end
+     return nil
    end
 
 end
