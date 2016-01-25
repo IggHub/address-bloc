@@ -53,11 +53,16 @@ class AddressBook
    end
 
    def iterative_search(name)
-     @entries.each do |lookup|
+     arr_count = @entries.length - 1
+     counter = 0
+     iterative_name = @entries[counter].name
 
-       if lookup.name == name
-         return lookup
+     while counter <= arr_count
+       if iterative_name == name
+         return iterative_name
+         #break
        end
+       counter += 1
      end
      return nil
    end
