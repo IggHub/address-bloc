@@ -5,6 +5,12 @@ require_relative '../models/address_book'
 
    def initialize
      @address_book = AddressBook.new
+     @address_book.import_from_csv("entries.csv")
+   end
+
+   def demolish_all
+     @address_book.entries.delete_if {|elem| elem.to_s > ""}
+     puts "All entries has been deleted"
    end
 
    def main_menu
@@ -15,6 +21,7 @@ require_relative '../models/address_book'
      puts "3 - Search for an entry"
      puts "4 - Import entries from a CSV"
      puts "5 - Exit"
+     puts "6 - DESTROY (WARNING!!! THIS WILL DELETE ALL YOUR FIL)"
      print "Enter your selection: "
 
  # #3
@@ -40,6 +47,11 @@ require_relative '../models/address_book'
       puts "Good-bye!"
 # #8
       exit(0)
+
+    when 6
+      system "clear"
+      demolish_all
+      main_menu
 # #9
     else
       system "clear"
@@ -48,6 +60,10 @@ require_relative '../models/address_book'
     end
   end
 
+  def delete_entry(entry)
+    @address_book.entries.delete(entry)
+    puts "#{entry.name} has been deleted"
+  end
 # #10
   def view_all_entries
     address_book.entries.each do |entry|
@@ -179,11 +195,6 @@ require_relative '../models/address_book'
        puts "#{selection} is not a valid input"
        entries_submenu(entry)
      end
-   end
-
-   def delete_entry(entry)
-     @address_book.entries.delete(entry)
-     puts "#{entry.name} has been deleted"
    end
 
    def edit_entry(entry)
